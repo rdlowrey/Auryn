@@ -11,30 +11,39 @@ jobs:
         include:
           - operating-system: 'ubuntu-latest'
             php-version: '7.1'
+            composer-require-checker-version: '2.1.0'
 
           - operating-system: 'ubuntu-latest'
             php-version: '7.2'
+            composer-require-checker-version: '2.1.0'
 
           - operating-system: 'ubuntu-latest'
             php-version: '7.3'
+            composer-require-checker-version: '2.1.0'
 
           - operating-system: 'ubuntu-latest'
             php-version: '7.4'
+            composer-require-checker-version: '3.6.0'
 
           - operating-system: 'ubuntu-latest'
             php-version: '8.0'
+            composer-require-checker-version: '3.6.0'
 
           - operating-system: 'ubuntu-latest'
             php-version: '8.1'
+            composer-require-checker-version: '3.6.0'
 
           - operating-system: 'ubuntu-latest'
             php-version: '8.2'
+            composer-require-checker-version: '3.6.0'
 
           - operating-system: 'ubuntu-latest'
             php-version: '8.3'
+            composer-require-checker-version: '3.6.0'
 
           - operating-system: 'ubuntu-latest'
             php-version: '8.4'
+            composer-require-checker-version: '3.6.0'
 
     name: PHP ${{ matrix.php-version }} ${{ matrix.job-description }}
 
@@ -87,7 +96,7 @@ jobs:
         if: runner.os != 'Windows'
 
       - name: Install composer-require-checker
-        run: php -r 'file_put_contents("composer-require-checker.phar", file_get_contents("https://github.com/maglnet/ComposerRequireChecker/releases/download/3.6.0/composer-require-checker.phar"));'
+        run: php -r 'file_put_contents("composer-require-checker.phar", file_get_contents("https://github.com/maglnet/ComposerRequireChecker/releases/download/{{ matrix.composer-require-checker-version }}/composer-require-checker.phar"));'
         if: runner.os != 'Windows' && matrix.composer-require-checker-version != 'none'
 
       - name: Run composer-require-checker

@@ -9,7 +9,7 @@ class ReflectionCacheApc implements ReflectionCache
 
     public function __construct(?ReflectionCache $localCache = null)
     {
-        $this->localCache = $localCache ?: new ReflectionCacheArray;
+        $this->localCache = $localCache ?: new ReflectionCacheArray();
     }
 
     public function setTimeToLive($seconds)
@@ -26,11 +26,11 @@ class ReflectionCacheApc implements ReflectionCache
 
         if ($localData != false) {
             return $localData;
-        } else {
-            $success = null; // stupid by-ref parameter that scrutinizer complains about
-            $data = apc_fetch($key, $success);
-            return $success ? $data : false;
         }
+
+        $success = null; // stupid by-ref parameter that scrutinizer complains about
+        $data    = apc_fetch($key, $success);
+        return $success ? $data : false;
     }
 
     public function store($key, $data)

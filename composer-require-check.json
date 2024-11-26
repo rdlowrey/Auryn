@@ -1,0 +1,12 @@
+{
+  "symbol-whitelist" : [
+    "apc_fetch",
+    "apc_store",
+    "array",
+    "false",
+    "null",
+    "parent",
+    "self",
+    "true"
+  ]
+}

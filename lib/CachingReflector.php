@@ -4,19 +4,19 @@ namespace Auryn;
 
 class CachingReflector implements Reflector
 {
-    const CACHE_KEY_CLASSES = 'auryn.refls.classes.';
-    const CACHE_KEY_CTORS = 'auryn.refls.ctors.';
-    const CACHE_KEY_CTOR_PARAMS = 'auryn.refls.ctor-params.';
-    const CACHE_KEY_FUNCS = 'auryn.refls.funcs.';
-    const CACHE_KEY_METHODS = 'auryn.refls.methods.';
+    public const CACHE_KEY_CLASSES = 'auryn.refls.classes.';
+    public const CACHE_KEY_CTORS = 'auryn.refls.ctors.';
+    public const CACHE_KEY_CTOR_PARAMS = 'auryn.refls.ctor-params.';
+    public const CACHE_KEY_FUNCS = 'auryn.refls.funcs.';
+    public const CACHE_KEY_METHODS = 'auryn.refls.methods.';
 
     private $reflector;
     private $cache;
 
     public function __construct(?Reflector $reflector = null, ?ReflectionCache $cache = null)
     {
-        $this->reflector = $reflector ?: new StandardReflector;
-        $this->cache = $cache ?: new ReflectionCacheArray;
+        $this->reflector = $reflector ?: new StandardReflector();
+        $this->cache = $cache ?: new ReflectionCacheArray();
     }
 
     public function getClass($class)

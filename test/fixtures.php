@@ -1,6 +1,6 @@
 <?php
 
-namespace Auryn\Test;
+namespace Auryn;
 
 class InaccessibleExecutableClassMethod
 {
@@ -158,6 +158,7 @@ class SpecdTestDependency extends TestDependency
 
 class TestNeedsDep
 {
+    public $testDep;
     public function __construct(TestDependency $testDep)
     {
         $this->testDep = $testDep;
@@ -174,6 +175,8 @@ class TestClassWithNoCtorTypehints
 
 class TestMultiDepsNeeded
 {
+    public $testDep;
+
     public function __construct(TestDependency $val1, TestDependency2 $val2)
     {
         $this->testDep = $val1;
@@ -184,6 +187,8 @@ class TestMultiDepsNeeded
 
 class TestMultiDepsWithCtor
 {
+    public $testDep;
+
     public function __construct(TestDependency $val1, TestNeedsDep $val2)
     {
         $this->testDep = $val1;
@@ -231,6 +236,7 @@ class DepImplementation implements DepInterface
 class RequiresInterface
 {
     public $dep;
+    public $testDep;
     public function __construct(DepInterface $dep)
     {
         $this->testDep = $dep;
@@ -362,7 +368,7 @@ class StringStdClassDelegateMock
     }
     private function make()
     {
-        $obj = new \StdClass;
+        $obj = new \stdClass();
         $obj->test = 42;
         return $obj;
     }
@@ -449,7 +455,7 @@ class CallableDelegateClassTest
 {
     public function __invoke()
     {
-        return new MadeByDelegate;
+        return new MadeByDelegate();
     }
 }
 
@@ -595,12 +601,12 @@ class SomeClassName
 
 class TestDelegationSimple
 {
-    public $delgateCalled = false;
+    public $delegateCalled = false;
 }
 
 class TestDelegationDependency
 {
-    public $delgateCalled = false;
+    public $delegateCalled = false;
     public function __construct(TestDelegationSimple $testDelegationSimple)
     {
     }
@@ -608,7 +614,7 @@ class TestDelegationDependency
 
 function createTestDelegationSimple()
 {
-    $instance = new TestDelegationSimple;
+    $instance = new TestDelegationSimple();
     $instance->delegateCalled = true;
 
     return $instance;
@@ -709,32 +715,45 @@ class DependencyChainTest
     }
 }
 
-class ParentWithConstructor {
+class ParentWithConstructor
+{
     public $foo;
-    function __construct($foo) {
+    public function __construct($foo)
+    {
         $this->foo = $foo;
     }
 }
 
-class ChildWithoutConstructor extends ParentWithConstructor {
+class ChildWithoutConstructor extends ParentWithConstructor
+{
 }
 
-class DelegateA {}
-class DelegatingInstanceA {
-    public function __construct(DelegateA $a) {
+class DelegateA
+{
+}
+class DelegatingInstanceA
+{
+    public function __construct(DelegateA $a)
+    {
         $this->a = $a;
     }
 }
 
-class DelegateB {}
-class DelegatingInstanceB {
-    public function __construct(DelegateB $b) {
+class DelegateB
+{
+}
+class DelegatingInstanceB
+{
+    public function __construct(DelegateB $b)
+    {
         $this->b = $b;
     }
 }
 
-class ThrowsExceptionInConstructor {
-    public function __construct() {
+class ThrowsExceptionInConstructor
+{
+    public function __construct()
+    {
         throw new \Exception('Exception in constructor');
     }
 }
